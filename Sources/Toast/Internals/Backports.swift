@@ -6,14 +6,17 @@ extension View {
     alignment: Alignment = .center,
     @ViewBuilder content: () -> some View
   ) -> some View {
-    if #available(iOS 15.0, *) {
-      self.background(alignment: alignment, content: content)
-    } else {
-      self.background(content(), alignment: alignment)
-    }
+      if #available(iOS 26.0, *) {
+          self.glassEffect(.regular.interactive(), in: Capsule())
+      }
+      else if #available(iOS 15.0, *) {
+          self.background(alignment: alignment, content: content)
+      } else {
+          self.background(content(), alignment: alignment)
+      }
   }
-
-  @ViewBuilder
+    
+    @ViewBuilder
   internal func _foregroundColor(_ color: Color) -> some View {
     if #available(iOS 15.0, *) {
       self.foregroundStyle(color)
