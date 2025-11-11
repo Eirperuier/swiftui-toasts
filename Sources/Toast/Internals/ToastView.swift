@@ -9,7 +9,10 @@ internal struct ToastView: View {
   var body: some View {
       if #available(iOS 26.0, *) {
           main
+          #if os(iOS)
+              
               .glassEffect(.regular.interactive(), in: Capsule())
+          #endif
               .id(model.message)
               .frame(height: 48)
               .compositingGroup()
